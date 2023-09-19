@@ -5,6 +5,7 @@ public class Database {
 
     private final ArrayList<Hero> heroes = new ArrayList<>();
 
+
     public void addHero(Hero hero){
 
         heroes.add(hero);
@@ -13,20 +14,17 @@ public class Database {
 
         return heroes;
     }
-
+    public ArrayList<Hero> findHero;
 
 
     public Hero findHero(String searchName) {
         for (Hero h : heroes) {
             if (h.getName().equalsIgnoreCase(searchName)) {
                 System.out.println("Hero found in the Registry:");
-                System.out.println("Name: " + h.getName());
-                System.out.println("Real Name: " + h.getRealName());
-                System.out.println("Super Powers: " + h.getSuperPower());
-                System.out.println("Year Created: " + h.getYearCreated());
-                System.out.println("Strength: " + h.getStrength());
-                System.out.println("Is Human: " + (h.isHuman() ? "Yes" : "No"));
+                System.out.println();
+                toString();
                 return h;
+
             }
         }
         System.out.println("Hero not found in the Registry");

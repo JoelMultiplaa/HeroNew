@@ -17,6 +17,21 @@ public class Hero {
         this.isHuman = isHuman;
         this.strength = strength;
     }
+    @Override
+    public String toString() {
+        String heroInfo = "Name: " + name + "\n" +
+                "Real Name: " + realName + "\n" +
+                "Super Powers: " + superPower + "\n" +
+                "Year Created: " + yearCreated + "\n" +
+                "Strength: " + strength + "\n" +
+                "Is Human: " + (isHuman ? "Yes" : "No");
+
+        System.out.println("Hero Details: \n" +
+                " ");
+
+        return heroInfo;
+    }
+
     public String getName()
     {
         return name;
