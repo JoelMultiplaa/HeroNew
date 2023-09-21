@@ -1,10 +1,12 @@
 package UiPack;
 
+import InputPack.InputHelper;
 import ControlPack.Controller;
 import DataPack.Database;
 import HeroInfo.Hero;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 
 public class HeroUI {
     private final Controller controller;
@@ -16,11 +18,13 @@ public class HeroUI {
         Database db = new Database();
         Controller controller = new Controller(db);
         Scanner keyboard = new Scanner(System.in);
+        InputHelper inputHelper = new InputHelper(keyboard);
 
         db.addHero(new Hero("Superman", "Clark Kent", "Flight, Super strength", 1938, false, 100));
         db.addHero(new Hero("Batman", "Bruce Wayne", "Intelligence, Martial Arts", 1939, true, 70));
 
-        System.out.println("Welcome to the Hero Registry! ");
+        System.out.println("Welcome to Hero World! ");
+        System.out.println(); // Line break for readability
         int userChoice;
         do {
             System.out.println("""
@@ -28,54 +32,46 @@ public class HeroUI {
                      2. See Hero Registry
                      3. Search Hero Registry
                      4. Edit A Hero
-                     5. Leave Hero World.
+                     5. Delete A Hero
+                     6. Leave Hero World.
                     """);
-            userChoice = keyboard.nextInt();
+            userChoice = inputHelper.promptInt("Enter your choice (1-6):");
+
 
             switch (userChoice) {
                 case 1 -> {
                     System.out.println("Let's Create A New Hero, Press Enter To Continue!");
-                    keyboard.nextLine();
-                    keyboard.nextLine();
-                    System.out.println("Input Hero Moniker ");
-                    String name = keyboard.nextLine();
-                    System.out.println("Input Real Name ");
-                    String realName = keyboard.nextLine();
-                    System.out.println("Input Super Powers ");
-                    String superPowers = keyboard.nextLine();
-                    System.out.println("Input Year Created ");
-                    int yearCreated = keyboard.nextInt();
-                    System.out.println("Input Strength Number ");
-                    double strength = keyboard.nextDouble();
-                    System.out.println("Are They Human? Input y/n");
-                    if (keyboard.next().equalsIgnoreCase("Y")) {
-                        boolean isHuman = true;
-                        System.out.println("Thank You. Your Hero Has Been Registered ");
+                    keyboard.nextLine(); // Line Consumed for readability
+                    System.out.println(); // Line break for readability
+                    String name = inputHelper.promptString("Input Hero Moniker: ");
+                    String realName = inputHelper.promptString("Input Real Name: ");
+                    String superPowers = inputHelper.promptString("Input Super Powers: ");
+                    int yearCreated = inputHelper.promptInt("Input Year Created: ");
+                    double strength = inputHelper.promptDouble("Input Strength Number: ");
+                    boolean isHuman = inputHelper.promptBoolean("Is the Hero Human, y/n?");
 
-                        Hero newHero = new Hero(name, realName, superPowers, yearCreated, isHuman, strength);
-
-                        controller.addHero(newHero);
-
-                        System.out.printf(newHero.toString());
+                    Hero newHero = new Hero(name, realName, superPowers, yearCreated, isHuman, strength);
+                    db.addHero(newHero);
+                    System.out.println("Thank You. Your Hero Has Been Registered ");
+                    System.out.println(); // Line break for readability
+                    System.out.println(newHero.toString());
+                    System.out.println(); // Line break for readability
 
 
-
-
-                    }
                 }
                 case 2 -> {
                     System.out.println("Our Registered Heroes: ");
                     System.out.println();
                     ArrayList<Hero> heroesList = controller.getHeroesList();
                     for (Hero hero : heroesList) {
-                        System.out.println(hero.toString()); // Calling toString() on the Hero object
-                        System.out.println(); // Add a line break for readability
+                        System.out.println(hero.toString());
+                        System.out.println(); // Line break for readability
                     }
                 }
                 case 3 -> {
                     System.out.println("Please Input Hero Name ");
-                    String searchPart = keyboard.nextLine();
-                    keyboard.nextLine();
+                    String searchPart = inputHelper.promptString("");
+                    System.out.println(); // Line break for readability
                     ArrayList<Hero> matchingHeroes = db.findHeroesByPartOfName(searchPart);
                     if (!matchingHeroes.isEmpty()) {
                         System.out.println("Matching Heroes:");
@@ -84,93 +80,77 @@ public class HeroUI {
                             System.out.println((i + 1) + ". " + hero.getName());
                         }
                         System.out.println("Select a hero (enter the number): ");
-                        int selection = keyboard.nextInt();
+                        int selection = inputHelper.promptInt("");
 
                         if (selection >= 1 && selection <= matchingHeroes.size()) {
                             Hero selectedHero = matchingHeroes.get(selection - 1);
 
-                            System.out.println(selectedHero.toString()); // Calling toString() on the Hero object
-                            System.out.println(); // Add a line break for readability
+                            System.out.println(selectedHero.toString());
+                            System.out.println(); // Line break for readability
 
                             System.out.println("Press Enter to Continue...");
                             keyboard.nextLine();
-                            System.out.println();
-                            keyboard.nextLine();
+                            System.out.println(); // Line break for readability
                         } else {
                             System.out.println("Invalid selection.");
                         }
 
                     } else {
                         System.out.println("Click Enter to Continue");
+                        keyboard.nextLine(); // Break to consume line
+                        System.out.println(); // Line break for readability
                         keyboard.nextLine();
-                        System.out.println();
-                        keyboard.nextLine();
-
                     }
                 }
                 case 4 -> {
                     System.out.println("Please Input Hero Name to Edit: ");
-                    keyboard.nextLine();
-                    String heroNameToEdit = keyboard.nextLine();
-                    System.out.println();
-                    Hero heroToEdit = db.findHero(heroNameToEdit);
-                    if (heroToEdit != null) {
-                        System.out.println("Hero found. Editing Hero: " + heroToEdit.toString());
-                        System.out.println("Enter new Hero Moniker: ");
-                        String newName = keyboard.nextLine();
-                        System.out.println("Enter new Real Name: ");
-                        String newRealName = keyboard.nextLine();
-                        System.out.println("Enter new Super Powers: ");
-                        String newSuperPowers = keyboard.nextLine();
-                        System.out.println("Enter new Year Created: ");
-                        int newYearCreated = 0;
-                        while (true) {
-                            try {
-                                newYearCreated = Integer.parseInt(keyboard.nextLine());
-                                break;
-                            } catch (NumberFormatException e) {
-                                System.out.println("Invalid input. Please enter a valid number.");
-                            }
-                        }
-                        double newStrength = 0.0;
-                        while (true) {
-                            try {
-                                System.out.println("Enter new Strength Number: ");
-                                newStrength = Double.parseDouble(keyboard.nextLine());
-                                break;
-                            } catch (NumberFormatException e) {
-                                System.out.println("Invalid input. Please enter a valid number.");
-                            }
-                        }
+                    String heroNameToEdit = inputHelper.promptString("");
 
-                        System.out.println("Is the Hero Human? Input y/n: ");
-                        boolean newIsHuman = keyboard.next().equalsIgnoreCase("Y");
+                    Hero heroToEdit = db.findHero(heroNameToEdit);
+
+                    if (heroToEdit != null) {
+                        System.out.println(); // Line break for readability
+                        String newName = inputHelper.promptString("Enter new Hero Moniker: ");
+                        System.out.println();
+                        String newRealName = inputHelper.promptString("Enter new Real Name: ");
+                        System.out.println();
+                        String newSuperPowers = inputHelper.promptString("Enter new Super Powers: ");
+                        System.out.println();
+                        int newYearCreated = inputHelper.promptInt("Enter new Year Created: ");
+                        System.out.println();
+                        double newStrength = inputHelper.promptDouble("Enter new Strength Number: ");
+                        System.out.println();
+                        boolean newIsHuman = inputHelper.promptBoolean("Is the Hero Human? Input y/n: ");
 
                         // Update the Hero's attributes
                         db.updateHero(heroNameToEdit, newName, newRealName, newSuperPowers, newYearCreated, newIsHuman, newStrength);
                         heroToEdit.setName(newName);
-                        // Display the updated Hero's details
-                        Hero updatedHero = db.findHero(newName);
-                        System.out.println("Your Hero Has Been Updated, Click Enter To View It!");
-                        keyboard.nextLine();
-                        System.out.println();
-                        keyboard.nextLine();
-                        System.out.println(updatedHero.toString()); // Calling toString() on the Hero object
-                        System.out.println(); // Add a line break for readability
+
+                        Hero updatedHero = db.findHero(newName); // Displaying the updated Hero's details, note that updatedHero, is only named so for readability.
+                        System.out.println("Your Hero Has Been Updated,");
+                        System.out.println(); // Line break for readability
                     } else {
                         System.out.println();
                     }
-
                 }
                 case 5 -> {
+                    String heroNameToDelete = inputHelper.promptString("Enter the Hero Name to Delete:");
+                    int choice = inputHelper.promptInt("Are you sure you want to delete " + heroNameToDelete + "? (1 for Yes, 2 for No)");
+                    boolean deleted = db.deleteHero(heroNameToDelete, choice);
+                    if (deleted) {
+                        System.out.println("Hero deleted successfully.");
+                        System.out.println(); // Line break for readability
+                    } else {
+                        System.out.println(choice == 2 ? "Deletion canceled." : "Hero not found for deletion.");
+                        System.out.println(); // Line break for readability
+                    }
+                }
+                case 6 -> {
                     System.out.println("Goodbye");
                     System.exit(0);
                 }
             }
-
         } while (true);
-
-
     }
 
 }

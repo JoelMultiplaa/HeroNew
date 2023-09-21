@@ -67,9 +67,7 @@ public class Hero {
     }
 
     public boolean isHuman() {
-        if (isHuman)
-            return isHuman;
-        return false;
+        return isHuman;
     }
 
     public void setIsHuman(boolean isHuman) {
