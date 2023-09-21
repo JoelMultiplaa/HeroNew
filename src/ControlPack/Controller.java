@@ -4,7 +4,6 @@ import HeroInfo.Hero;
 import java.util.ArrayList;
 
 public class Controller {
-
     private final Database db;
 
     public Controller(Database db) {

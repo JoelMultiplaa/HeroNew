@@ -10,6 +10,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -27,7 +28,6 @@ class DatabaseTest {
         // Add initial Hero objects to the database
         db.addHero(new Hero("Superman", "Clark Kent", "Flight, Super strength", 1938, false, 100));
         db.addHero(new Hero("Batman", "Bruce Wayne", "Intelligence, Martial Arts", 1939, true, 70));
-
         }
 
 
@@ -66,21 +66,43 @@ class DatabaseTest {
         // Check if the expected output matches the actual output
         assertEquals(expectedOutput, "Hero found in the Registry:\n" + foundHero.toString());
     }
-
-
     @Test
-    void findHero(){
+    void testFindHeroesByPartOfName() {
+        String inputSearchPart = "S";
+        ArrayList<Hero> foundHeroes = db.findHeroesByPartOfName(inputSearchPart);
+
+        assertEquals(1, foundHeroes.size());
+
 
     }
 
     @Test
-    void updateHero() {
+
+        // Work in progress!
+
+    void testDeleteHero() {
+
+        boolean removed = db.deleteHero("Superman");
+        ArrayList<Hero> heroesList = db.heroesList();
+        boolean found = false;
+        for (Hero hero : heroesList) {
+            if (hero.getName().equals("Superman")) {
+                found = true;
+                break;
+            }
+        }
+        assertFalse(found);
+    }
     }
 
-    @Test
-    void findHeroesByPartOfName() {
-
-    }
 
 
-}
+
+
+
+
+
+
+
+
+

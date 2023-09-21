@@ -8,7 +8,6 @@ public class Main {
         Database db = new Database();
         Controller controller = new Controller(db);
         HeroUI heroUI = new HeroUI(controller);
-
         heroUI.startProgram();
     }
 }
