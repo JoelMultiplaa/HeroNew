@@ -1,16 +1,15 @@
-package UiPack;
+package ui;
 
-import InputPack.InputHelper;
-import ControlPack.Controller;
-import DataPack.Database;
-import HeroInfo.Hero;
+import domainmodel.Controller;
+import domainmodel.Database;
+import domainmodel.Hero;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 
-public class HeroUI {
+public class ui {
     private final Controller controller;
-    public HeroUI(Controller controller) {
+    public ui(Controller controller) {
         this.controller = controller;
     }
     public void startProgram() {
@@ -147,6 +146,7 @@ public class HeroUI {
                 }
                 case 6 -> {
                     System.out.println("Goodbye");
+                    controller.saveFile();
                     System.exit(0);
                 }
             }
