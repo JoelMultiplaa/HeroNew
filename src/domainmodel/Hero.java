@@ -1,4 +1,4 @@
-package HeroInfo;
+package domainmodel;
 
 public class Hero {
     private String name;

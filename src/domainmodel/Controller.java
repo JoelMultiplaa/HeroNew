@@ -1,6 +1,6 @@
-package ControlPack;
-import DataPack.Database;
-import HeroInfo.Hero;
+package domainmodel;
+import domainmodel.Database;
+import domainmodel.Hero;
 import java.util.ArrayList;
 
 public class Controller {
@@ -31,5 +31,9 @@ public class Controller {
 
     public ArrayList<Hero> getHeroesList() {
         return db.heroesList();
+    }
+
+    public void saveFile() {
+        db.saveFile();
     }
 }

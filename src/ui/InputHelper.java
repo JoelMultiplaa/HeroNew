@@ -1,4 +1,4 @@
-package InputPack;
+package ui;
 
 import com.sun.jdi.BooleanValue;
 

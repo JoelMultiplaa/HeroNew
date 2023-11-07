@@ -1,13 +1,13 @@
-package DataPack;
-import HeroInfo.Hero;
-import InputPack.InputHelper;
+package domainmodel;
+import data_source.FileHandler;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Database {
 
-    private final ArrayList<Hero> heroes = new ArrayList<>();
+    private FileHandler fileHandler = new FileHandler();
+    private ArrayList<Hero> heroes = new ArrayList<>();
 
     public void addHero(Hero hero) {
         heroes.add(hero);
@@ -81,5 +81,9 @@ public class Database {
 
 
         return false;
+    }
+
+    public void saveFile() {
+        fileHandler.saveToFile(heroes);
     }
 }
