@@ -1,3 +1,2 @@
 Superman,Clark Kent,Flight, Super strength,false,100.0,1938
 Batman,Bruce Wayne,Intelligence, Martial Arts,true,70.0,1939
-File has been saved

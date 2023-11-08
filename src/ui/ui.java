@@ -1,9 +1,10 @@
 package ui;
-
 import domainmodel.Controller;
 import domainmodel.Database;
 import domainmodel.Hero;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Scanner;
 
 
@@ -62,6 +63,7 @@ public class ui {
                     System.out.println("Our Registered Heroes: ");
                     System.out.println();
                     ArrayList<Hero> heroesList = controller.getHeroesList();
+                    Collections.sort(heroesList, Comparator.comparing(Hero::getName));
                     for (Hero hero : heroesList) {
                         System.out.println(hero.toString());
                         System.out.println(); // Line break for readability
@@ -77,6 +79,7 @@ public class ui {
                         for (int i = 0; i < matchingHeroes.size(); i++) {
                             Hero hero = matchingHeroes.get(i);
                             System.out.println((i + 1) + ". " + hero.getName());
+
                         }
                         System.out.println("Select a hero (enter the number): ");
                         int selection = inputHelper.promptInt("");
@@ -149,8 +152,13 @@ public class ui {
                     controller.saveFile();
                     System.exit(0);
                 }
+
+                case 7 -> {
+                    controller.loadFromFile();
+                }
             }
         } while (true);
+
     }
 
 }

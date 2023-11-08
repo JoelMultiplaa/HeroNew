@@ -36,4 +36,8 @@ public class Controller {
     public void saveFile() {
         db.saveFile();
     }
+    public void loadFromFile () {
+       db.loadFromFile();
+
+    }
 }
