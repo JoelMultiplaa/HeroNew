@@ -14,7 +14,7 @@ public class Main {
         Controller controller = new Controller(db);
         HeroUI heroUI = new HeroUI(controller);
         Filehandler filehandler = new Filehandler();
-        
+
         heroUI.startProgram();
     }
 }

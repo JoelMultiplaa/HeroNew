@@ -1,3 +1,3 @@
 Batman,Bruce Wayne,[EXCEPTIONAL],1939,true,70.0,Genius-level intellect
 Superman,Clark Kent,[FLIGHT, SUPER_STRENGTH, INVULNERABILITY, OCULAR_POWERS, SUPER_SPEED],1938,false,100.0,Solar Energy Absorption
-Gasboy,Gary G,[FLIGHT],1999,false,65.0,Gas bod
+Gasboy,Gary G,[FLIGHT],1999,true,65.0,Gas bod

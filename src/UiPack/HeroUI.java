@@ -16,6 +16,7 @@ public class HeroUI {
 
     public HeroUI(Controller controller) {
         this.controller = controller;
+
     }
     public void startProgram() {
 
@@ -47,23 +48,23 @@ public class HeroUI {
 
             switch (userChoice) {
                 case 1 -> {
-                    System.out.println("Let's Create A New Hero, Press Enter To Continue!");
-                    keyboard.nextLine(); // Line Consumed for readability
+                    System.out.println("Creating a new hero!");
                     System.out.println(); // Line break for readability
-                    String name = inputHelper.promptString("Input Hero Moniker: ");
-                    String realName = inputHelper.promptString("Input Real Name: ");
-                    // Calling the editSuperPowers method to set powers
+                    String name = inputHelper.promptString("What is their Superhero name?");
+                    String realName = inputHelper.promptString("What is their real name?");
+                    System.out.println(); // Line break for readability
+
+                    System.out.println("Choose powers for your hero");
+                    System.out.println(); // Line break for readability
                     EnumSet<Hero.SuperPower> heroPowers = editSuperPowers(null, inputHelper);
-                    String uniquePowers = inputHelper.promptString("Input any unique powers not listed: ");
-
-
-                    int yearCreated = inputHelper.promptInt("Input Year Created: ");
-                    double strength = inputHelper.promptDouble("Input Strength Number: ");
+                    String uniquePowers = inputHelper.promptString("Input any unique powers, skills, or relevant trivia.");
+                    int yearCreated = inputHelper.promptInt("Which year was the hero created?");
+                    double strength = inputHelper.promptDouble("On a scale from 1-100, how powerful are they?");
                     boolean isHuman = inputHelper.promptBoolean("Is the Hero Human, y/n?");
 
                     Hero newHero = new Hero(name, realName, heroPowers, yearCreated, isHuman, strength, uniquePowers);
                     db.addHero(newHero);
-                    System.out.println("Thank You. Your Hero Has Been Registered ");
+                    System.out.println("The hero has been registered!");
                     System.out.println(); // Line break for readability
                     System.out.println(newHero);
                     System.out.println(); // Line break for readability
@@ -71,7 +72,7 @@ public class HeroUI {
 
                 }
                 case 2 -> {
-                    System.out.println("Our Registered Heroes: ");
+                    System.out.println("Our registered Heroes: ");
                     System.out.println();
                     ArrayList<Hero> heroesList = controller.getHeroesList();
                     
@@ -83,7 +84,7 @@ public class HeroUI {
                     }
                 }
                 case 3 -> {
-                    System.out.println("Please Input Hero Name ");
+                    System.out.println("Input hero name, or partial name ");
                     String searchPart = inputHelper.promptString("");
                     System.out.println(); // Line break for readability
                     ArrayList<Hero> matchingHeroes = db.findHeroesByPartOfName(searchPart);
@@ -142,27 +143,28 @@ public class HeroUI {
 
                     if (heroToEdit != null) {
                         System.out.println(); // Line break for readability
-                        String newName = inputHelper.promptString("Enter new Hero Moniker: ");
+                        String newName = inputHelper.promptString("What's the new Hero name?");
                         System.out.println();
-                        String newRealName = inputHelper.promptString("Enter new Real Name: ");
+                        String newRealName = inputHelper.promptString("Great! And their real name?");
                         System.out.println();
 
                         // Edit the hero's superpowers using the editSuperPowers method
                         EnumSet<Hero.SuperPower> newSuperPowers = editSuperPowers(heroToEdit.getSuperPowers(), inputHelper);
 
-                        String uniquePowers = inputHelper.promptString("Input any unique powers not listed: ");
+                        String uniquePowers = inputHelper.promptString("Any unique powers, skills or trivia to include?");
                         System.out.println();
                         int newYearCreated = inputHelper.promptInt("Enter new Year Created: ");
                         System.out.println();
-                        double newStrength = inputHelper.promptDouble("Enter new Strength Number: ");
+                        double newStrength = inputHelper.promptDouble("Enter new strength level from 1-100.");
                         System.out.println();
-                        boolean newIsHuman = inputHelper.promptBoolean("Is the Hero Human? Input y/n: ");
+                        boolean newIsHuman = inputHelper.promptBoolean("Are they human? Input y/n: ");
 
-                        // Update the Hero's attributes
+                        // Updated hero completion
                         db.updateHero(heroNameToEdit, newName, newRealName, newSuperPowers, newYearCreated, newIsHuman, newStrength, uniquePowers);
+                        // FIX ISHUMAN
                         heroToEdit.setName(newName);
 
-                        Hero updatedHero = db.findHero(newName); // Displaying the updated Hero's details, note that updatedHero is only named so for readability.
+                        Hero updatedHero = db.findHero(newName); // IS THIS WORKING PROPERLY?
                         System.out.println("Your Hero Has Been Updated,");
                         System.out.println(); // Line break for readability
                     } else {
@@ -186,7 +188,7 @@ public class HeroUI {
                     System.out.println("Do you wish to save the current list of heroes before exiting? (y/n): ");
                     String saveChoice = inputHelper.promptString("");
                     if (saveChoice.equalsIgnoreCase("y")) {
-                        filehandler.saveToCsvFile(db.getHeroes()); // Make sure to replace 'fileHandler' with the instance of your FileHandler class
+                        filehandler.saveToCsvFile(db.getHeroes());
                         System.out.println("Heroes list has been saved.");
                     }
                     System.out.println("Goodbye!");
@@ -264,12 +266,9 @@ public class HeroUI {
         while (selectedPower == null) {
             int startIndex = currentPage * POWERS_PER_PAGE;
             int endIndex = Math.min((currentPage + 1) * POWERS_PER_PAGE, totalPowers);
-
-            // Display powers for the current page
             for (int i = startIndex; i < endIndex; i++) {
                 System.out.println((i - startIndex + 1) + ". " + Hero.SuperPower.values()[i]);
             }
-            // Display navigation options
             if (currentPage > 0) {
                 System.out.println("7. Previous Page");
             }
@@ -278,10 +277,11 @@ public class HeroUI {
             }
             System.out.println("9. Done");
 
-            // Get user input
-            int powerChoice = inputHelper.promptInt("Choose a superpower by number or navigate: ");
 
-            // Logic for handling the user's selection or navigation
+            int powerChoice = inputHelper.promptInt("Choose superpowers from the menu below");
+            System.out.println(); // Line break for readability
+
+
             if (powerChoice >= 1 && powerChoice <= POWERS_PER_PAGE && (startIndex + powerChoice - 1) < totalPowers) {
                 selectedPower = Hero.SuperPower.values()[startIndex + powerChoice - 1];
             } else if (powerChoice == 7 && currentPage > 0) {

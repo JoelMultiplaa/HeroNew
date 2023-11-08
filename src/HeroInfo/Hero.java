@@ -130,9 +130,8 @@ public class Hero {
 
     }
     public static String formatSuperPower(Hero.SuperPower power) {
-        // This will replace underscores with spaces and capitalize the first letter of each word
         String name = power.name().toLowerCase().replace('_', ' ');
-        return name.substring(0, 1).toUpperCase() + name.substring(1);
+        return name.substring(0, 1).toUpperCase() + name.substring(1) + ": "+power.getDescription();
     }
 
 
