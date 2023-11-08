@@ -8,10 +8,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -24,9 +21,8 @@ class DatabaseTest {
         db = new Database();
         Scanner keyboard = new Scanner(System.in);
 
-        // Add initial Hero objects to the database
-        db.addHero(new Hero("Superman", "Clark Kent", "Flight, Super strength", 1938, false, 100));
-        db.addHero(new Hero("Batman", "Bruce Wayne", "Intelligence, Martial Arts", 1939, true, 70));
+        db.addHero(new Hero("Superman", "Clark Kent", EnumSet.of(Hero.SuperPower.FLIGHT, Hero.SuperPower.SUPER_STRENGTH, Hero.SuperPower.INVULNERABILITY, Hero.SuperPower.SUPER_SPEED, Hero.SuperPower.OCULAR_POWERS), 1938, false, 100.0, "Solar Energy Absorption"));
+        db.addHero(new Hero("Batman", "Bruce Wayne", EnumSet.of(Hero.SuperPower.EXCEPTIONAL), 1939, true, 70, "Genius-level intellect"));
         }
 
 
@@ -35,7 +31,7 @@ class DatabaseTest {
     @Test
     void addHero() {
         // Create a Hero instance with specific attributes
-        Hero newHero = new Hero("Spider-Man", "Peter Parker", "Web-slinging, Super agility", 1962, true, 80);
+        Hero newHero = new Hero("Spider-Man", "Peter Parker", EnumSet.of(Hero.SuperPower.SUPER_STRENGTH, Hero.SuperPower.INVULNERABILITY), 1962, true, 75, "Web-slinging, Super agility, Wall Climbing, Spider Sense");
 
         // Add the Hero to the database
         db.addHero(newHero);

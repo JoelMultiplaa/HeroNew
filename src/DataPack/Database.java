@@ -3,11 +3,14 @@ import HeroInfo.Hero;
 import InputPack.InputHelper;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.Iterator;
+import java.util.List;
 
 public class Database {
 
-    private final ArrayList<Hero> heroes = new ArrayList<>();
+    private  ArrayList<Hero> heroes = new ArrayList<>();
+
 
     public void addHero(Hero hero) {
         heroes.add(hero);
@@ -29,12 +32,12 @@ public class Database {
         System.out.println("Hero not found in the Registry");
         return null;
     }
-    public void updateHero(String name, String newName, String newRealName, String newSuperPower, int newYearCreated, boolean newIsHuman, double newStrength) {
+    public void updateHero(String name, String newName, String newRealName, EnumSet<Hero.SuperPower> newSuperPowers, int newYearCreated, boolean newIsHuman, double newStrength, String uniquePower) {
         for (Hero hero : heroes) {
             if (hero.getName().equalsIgnoreCase(name)) {
                 hero.setName(newName);
                 hero.setRealName(newRealName);
-                hero.setSuperPower(newSuperPower);
+                hero.setSuperPowers(newSuperPowers);  // Use the setter to update superpowers
                 hero.setYearCreated(newYearCreated);
                 hero.setIsHuman(newIsHuman);
                 hero.setStrength(newStrength);
@@ -43,6 +46,8 @@ public class Database {
         }
         System.out.println("Hero not found for update.");
     }
+
+
     public ArrayList<Hero> findHeroesByPartOfName(String searchPart) {
         ArrayList<Hero> matchingHeroes = new ArrayList<>();
         for (Hero h : heroes) {
@@ -81,5 +86,12 @@ public class Database {
 
 
         return false;
+    }
+
+    public void setHeroesList(List<Hero> loadedHeroes) {
+    }
+
+    public List<Hero> getHeroes() {
+        return heroes;
     }
 }

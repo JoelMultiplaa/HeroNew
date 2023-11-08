@@ -2,6 +2,9 @@ package ControlPack;
 import DataPack.Database;
 import HeroInfo.Hero;
 import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Controller {
     private final Database db;
@@ -18,14 +21,19 @@ public class Controller {
         }
         return matchingHeroes;
     }
+    public static List<Hero> searchHeroesByPowers(List<Hero> heroesList, EnumSet<Hero.SuperPower> searchPowers) {
+        return heroesList.stream()
+                .filter(hero -> hero.getSuperPowers().containsAll(searchPowers))
+                .collect(Collectors.toList());
+    }
     public Hero findHero(String foundHeroName) {
         return db.findHero(foundHeroName);
     }
     public void addHero(Hero hero) {
         db.addHero(hero);
 }
-    public void updateHero(String name, String newName, String newRealName, String newSuperPower, int newYearCreated, boolean newIsHuman, double newStrength) {
-        db.updateHero(name, newName, newRealName, newSuperPower, newYearCreated, newIsHuman, newStrength);
+    public void updateHero(String name, String newName, String newRealName, EnumSet<Hero.SuperPower> newSuperPowers, int newYearCreated, boolean newIsHuman, double newStrength, String newUniquePower) {
+        db.updateHero(name, newName, newRealName, newSuperPowers, newYearCreated, newIsHuman, newStrength, newUniquePower);
     }
 
 
