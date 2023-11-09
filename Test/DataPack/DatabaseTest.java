@@ -1,13 +1,10 @@
-import ControlPack.Controller;
-import DataPack.Database;
-import HeroInfo.Hero;
+import domain_model.Database;
+import domain_model.Hero;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import java.io.PrintStream;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;

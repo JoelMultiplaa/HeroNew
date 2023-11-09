@@ -1,12 +1,7 @@
-import ControlPack.Controller;
-import DataPack.Database;
-import DataPack.Filehandler;
-import HeroInfo.Hero;
-import UiPack.HeroUI;
-
-import java.io.IOException;
-import java.util.List;
-
+import domain_model.Controller;
+import domain_model.Database;
+import data_source.Filehandler;
+import userinterface.HeroUI;
 
 public class Main {
     public static void main(String[] args) {

@@ -1,6 +1,6 @@
-package DataPack;
+package data_source;
 
-import HeroInfo.Hero;
+import domain_model.Hero;
 
 import java.io.*;
 import java.nio.file.*;

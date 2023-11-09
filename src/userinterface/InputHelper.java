@@ -1,6 +1,4 @@
-package InputPack;
-
-import com.sun.jdi.BooleanValue;
+package userinterface;
 
 import java.util.Scanner;
 

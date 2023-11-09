@@ -1,11 +1,8 @@
-package UiPack;
+package userinterface;
 
-import InputPack.InputHelper;
-import ControlPack.Controller;
-import DataPack.*;
-import HeroInfo.Hero;
-
-import java.io.IOException;
+import data_source.Filehandler;
+import domain_model.*;
+import domain_model.Hero;
 import java.util.*;
 
 

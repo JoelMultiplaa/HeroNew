@@ -1,6 +1,4 @@
-package DataPack;
-import HeroInfo.Hero;
-import InputPack.InputHelper;
+package domain_model;
 
 import java.util.ArrayList;
 import java.util.EnumSet;

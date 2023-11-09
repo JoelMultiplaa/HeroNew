@@ -1,4 +1,4 @@
-package HeroInfo;
+package domain_model;
 
 import java.util.EnumSet;
 
