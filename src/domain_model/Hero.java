@@ -5,15 +5,10 @@ import java.util.EnumSet;
 public class Hero {
     private String name;
     private String realName;
-    public EnumSet<SuperPower> getSuperPowers() {
-        return superPowers;
-    }
     private EnumSet<SuperPower> superPowers;
-
     private int yearCreated;
     private boolean isHuman;
     private double strength;
-
     private String uniquePower;
 
 
@@ -64,6 +59,9 @@ public class Hero {
     
     public void setSuperPowers(EnumSet<SuperPower> superPowers) {
         this.superPowers = superPowers;
+    }
+    public EnumSet<SuperPower> getSuperPowers() {
+        return superPowers;
     }
 
     public String getUniquePower() {
@@ -122,6 +120,7 @@ public class Hero {
             return description;
         }
     }
+
     public static void displayAllSuperPowers() {
         for (SuperPower power : SuperPower.values()) {
             System.out.println(power.name() + ": " + power.getDescription());

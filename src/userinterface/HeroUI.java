@@ -15,10 +15,9 @@ public class HeroUI {
         this.controller = controller;
 
     }
-    public void startProgram() {
+    public void startProgram(Database db) {
+        Filehandler filehandler = new Filehandler();
 
-        Database db = new Database();
-        Controller controller = new Controller(db);
         this.filehandler = new Filehandler();
         Scanner keyboard = new Scanner(System.in);
         InputHelper inputHelper = new InputHelper(keyboard);
@@ -71,7 +70,7 @@ public class HeroUI {
                 case 2 -> {
                     System.out.println("Our registered Heroes: ");
                     System.out.println();
-                    ArrayList<Hero> heroesList = controller.getHeroesList();
+                    ArrayList<Hero> heroesList = db.getHeroes();
                     
                     heroesList.sort(Comparator.comparing(Hero::getName));
                     
@@ -128,7 +127,7 @@ public class HeroUI {
                         System.out.println("Select the second superpower to search for:");
                         searchPowers.add(selectSuperPower(inputHelper)); // Pass inputHelper to the method
                     }
-                    List<Hero> foundHeroes = Controller.searchHeroesByPowers(db.heroesList(), searchPowers);
+                    List<Hero> foundHeroes = Controller.searchHeroesByPowers(db.getHeroes(), searchPowers);
                     System.out.println("Found heroes with the selected superpowers: " + foundHeroes);
                 }
 

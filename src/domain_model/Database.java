@@ -14,9 +14,13 @@ public class Database {
         heroes.add(hero);
     }
 
-    public ArrayList<Hero> heroesList() {
+    public ArrayList<Hero> getHeroes() {
         return heroes;
     }
+    public void setHeroesList(ArrayList<Hero> loadedHeroes) {
+        this.heroes = loadedHeroes;
+    }
+
 
     public Hero findHero(String searchName) {
         for (Hero h : heroes) {
@@ -86,10 +90,4 @@ public class Database {
         return false;
     }
 
-    public void setHeroesList(List<Hero> loadedHeroes) {
-    }
-
-    public List<Hero> getHeroes() {
-        return heroes;
-    }
 }

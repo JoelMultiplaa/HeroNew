@@ -1,4 +1,7 @@
 package domain_model;
+import data_source.Filehandler;
+import userinterface.HeroUI;
+
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
@@ -7,20 +10,21 @@ import java.util.stream.Collectors;
 public class Controller {
     private final Database db;
 
-    public Controller(Database db) {
-        this.db = db;
+    public Controller() {
+
+        this.db = new Database();
     }
     public ArrayList<Hero> findHeroesByPartOfName(String searchPart) {
         ArrayList<Hero> matchingHeroes = new ArrayList<>();
-        for (Hero h : db.heroesList()) {
+        for (Hero h : db.getHeroes()) {
             if (h.getName().toLowerCase().contains(searchPart.toLowerCase())) {
                 matchingHeroes.add(h);
             }
         }
         return matchingHeroes;
     }
-    public static List<Hero> searchHeroesByPowers(List<Hero> heroesList, EnumSet<Hero.SuperPower> searchPowers) {
-        return heroesList.stream()
+    public static List<Hero> searchHeroesByPowers(List<Hero> heroes, EnumSet<Hero.SuperPower> searchPowers) {
+        return heroes.stream()
                 .filter(hero -> hero.getSuperPowers().containsAll(searchPowers))
                 .collect(Collectors.toList());
     }
@@ -36,6 +40,14 @@ public class Controller {
 
 
     public ArrayList<Hero> getHeroesList() {
-        return db.heroesList();
+        return db.getHeroes();
+    }
+
+    public void startProgram() {
+        Filehandler filehandler = new Filehandler();
+        ArrayList<Hero> heroes = filehandler.loadFromCsvFile();
+        db.setHeroesList(heroes);
+        HeroUI heroUI = new HeroUI(this);
+        heroUI.startProgram(db);
     }
 }

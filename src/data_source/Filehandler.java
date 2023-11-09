@@ -14,7 +14,6 @@ public class Filehandler {
     public static void saveToCsvFile(List<Hero> heroes) {
 
         File file = new File("HeroFile.txt");
-
         try {
             PrintStream output = new PrintStream(file);
             for (Hero hero : heroes) {
@@ -29,9 +28,9 @@ public class Filehandler {
     }
 
 
-    public static List<Hero> loadFromCsvFile() {
+    public static ArrayList<Hero> loadFromCsvFile() {
         File file = new File("HeroFile.txt");
-        List<Hero> heroes = new ArrayList<>();
+        ArrayList<Hero> heroes = new ArrayList<>();
 
         if (!Files.exists(file.toPath())) {
             return heroes;
@@ -45,7 +44,8 @@ public class Filehandler {
                     String name = values[0];
                     String realName = values[1];
                     EnumSet<Hero.SuperPower> superPowers = EnumSet.noneOf(Hero.SuperPower.class);
-                    String[] powers = values[2].replace("[", "").replace("]", "").split("\\s*,\\s*");
+                    //String[] powers = values[2].replace("[", "").replace("]", "").split("\\s*,\\s*");
+                    String[] powers = values[2].trim().split("-");
                     for (String power : powers) {
                         superPowers.add(Hero.SuperPower.valueOf(power));
                     }
@@ -56,6 +56,7 @@ public class Filehandler {
 
                     Hero hero = new Hero(name, realName, superPowers, yearCreated, isHuman, strength, uniquePower);
                     heroes.add(hero);
+
                 } else {
                     System.out.println("Error");
                 }
