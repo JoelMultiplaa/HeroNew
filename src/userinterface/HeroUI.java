@@ -37,7 +37,8 @@ public class HeroUI {
                      4. Search Heroes by Powers
                      5. Edit A Hero
                      6. Delete A Hero
-                     7. Leave Hero World.
+                     7. Save Current Hero Registry
+                     8. Leave Hero World.
                     """);
             userChoice = inputHelper.promptInt("Enter your choice (1-7):");
 
@@ -181,9 +182,23 @@ public class HeroUI {
                     }
                 }
                 case 7 -> {
+                    System.out.println("Do you wish to save the current list of heroes? (y/n): ");
+                    String saveChoice = inputHelper.promptString("");
+                    if (saveChoice.equalsIgnoreCase("y") || saveChoice.equalsIgnoreCase("yes")) {
+                        filehandler.saveToCsvFile(db.getHeroes());
+                        System.out.println("Heroes list has been saved.");
+                    }
+                    if (saveChoice.equalsIgnoreCase("n") || saveChoice.equalsIgnoreCase("no")) {
+                        System.out.println("Save cancelled");
+                    }
+                    else System.out.println("Please select yes or no, or y/n");
+
+                }
+
+                case 8 -> {
                     System.out.println("Do you wish to save the current list of heroes before exiting? (y/n): ");
                     String saveChoice = inputHelper.promptString("");
-                    if (saveChoice.equalsIgnoreCase("y")) {
+                    if (saveChoice.equalsIgnoreCase("y") || saveChoice.equalsIgnoreCase("yes")){
                         filehandler.saveToCsvFile(db.getHeroes());
                         System.out.println("Heroes list has been saved.");
                     }
