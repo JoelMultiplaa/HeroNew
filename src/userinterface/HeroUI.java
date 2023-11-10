@@ -245,6 +245,8 @@ public class HeroUI {
                     Hero.SuperPower chosenPower = allPowers[chosenIndex];
                     if (!heroPowers.contains(chosenPower)) {
                         heroPowers.add(chosenPower);
+                        System.out.println(Hero.getPowerName(chosenPower) + " has been added!");
+
                         System.out.println(chosenPower.name() + " has been added!");
                     } else {
                         System.out.println("Power already added. Try again.");
