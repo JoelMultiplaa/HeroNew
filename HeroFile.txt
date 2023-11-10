@@ -1,5 +1,6 @@
 Batman,Bruce Wayne,EXCEPTIONAL,1939,true,70.0,Genius-level intellect
 El Diablo,Miguel De la Sol,FLIGHT-ELEMENTAL_CONTROL,1995,false,85.0,El Diablo is a fiery hero
 Gasboy,Gary Greggs,FLIGHT-SHAPE_SHIFTING-ELEMENTAL_CONTROL,2001,false,65.0,Gas bod
+Minuteman,Frank Stiles,SUPER_STRENGTH-INVULNERABILITY,1979,false,72.0,Mortally wounded while attempting to foil a Communist plot
 Superman,Clark Kent,FLIGHT-SUPER_STRENGTH-INVULNERABILITY-OCULAR_POWERS-SUPER_SPEED,1938,false,100.0,Solar Energy Absorption
-Minuteman,Frank Stiles,SUPER_STRENGTH-INVULNERABILITY,1979,false,72.0,Mortally wounded while attempting to foil a Communist plot, Frank Stiles' powers were given to him by an Energy X imbued statue of the patriotic Minute Man. Taking on the name and mantle of this historic figure, he became Minuteman, and seeks to fight crime whenever it threatens the day-to-day life of honest Americans.
+Ozzy,Osmoses Jones,SHAPE_SHIFTING,2000,false,50.0,Can handle a gun
