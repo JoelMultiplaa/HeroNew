@@ -34,10 +34,10 @@ class DatabaseTest {
         db.addHero(newHero);
 
         // Retrieve the list of heroes from the database
-        ArrayList<Hero> heroesList = db.heroesList();
+        ArrayList<Hero> heroes;
 
         // Verify that the newHero is in the list
-        assertTrue(heroesList.contains(newHero));
+        assertTrue(db.getHeroes().contains(newHero));
     }
 
     @Test
@@ -64,8 +64,6 @@ class DatabaseTest {
         ArrayList<Hero> foundHeroes = db.findHeroesByPartOfName(inputSearchPart);
 
         assertEquals(1, foundHeroes.size());
-
-
     }
 
     @Test
@@ -75,9 +73,9 @@ class DatabaseTest {
     void testDeleteHero() {
 
         boolean removed = db.deleteHero("Superman");
-        ArrayList<Hero> heroesList = db.heroesList();
+        ArrayList<Hero> heroes;
         boolean found = false;
-        for (Hero hero : heroesList) {
+        for (Hero hero : db.getHeroes()) {
             if (hero.getName().equals("Superman")) {
                 found = true;
                 break;

@@ -5,6 +5,7 @@ import domain_model.Hero;
 import java.io.*;
 import java.nio.file.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Filehandler {
 
@@ -17,7 +18,8 @@ public class Filehandler {
         try {
             PrintStream output = new PrintStream(file);
             for (Hero hero : heroes) {
-                output.println(hero.getName() + DELIMITER + hero.getRealName() + DELIMITER + hero.getSuperPowers().toString() +
+                String superPowersString = hero.getSuperPowers().stream().map(Enum::name).collect(Collectors.joining("-"));
+                output.println(hero.getName() + DELIMITER + hero.getRealName() + DELIMITER + superPowersString +
                         DELIMITER + hero.getYearCreated() + DELIMITER + hero.isHuman() + DELIMITER + hero.getStrength() + DELIMITER +
                         hero.getUniquePower());
             }
@@ -44,7 +46,6 @@ public class Filehandler {
                     String name = values[0];
                     String realName = values[1];
                     EnumSet<Hero.SuperPower> superPowers = EnumSet.noneOf(Hero.SuperPower.class);
-                    //String[] powers = values[2].replace("[", "").replace("]", "").split("\\s*,\\s*");
                     String[] powers = values[2].trim().split("-");
                     for (String power : powers) {
                         superPowers.add(Hero.SuperPower.valueOf(power));
