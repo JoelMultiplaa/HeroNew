@@ -34,20 +34,28 @@ public class InputHelper {
             }
         }
     }
-
     public boolean promptBoolean(String prompt) {
         while (true) {
 
             try {
                 System.out.println(prompt);
-                return Boolean.parseBoolean(keyboard.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid input. Please enter 'y' if human or 'n' if non-human.");
-                // Line break added for readability
+                String input = keyboard.nextLine().toLowerCase();
+                if (input.equalsIgnoreCase("y") || input.equalsIgnoreCase("yes")) {
+                    return true;
+                } else if (input.equalsIgnoreCase("n") || input.equalsIgnoreCase("no")) {
+                    return false;
+                } else {
+                    System.out.println("Invalid input. Please enter 'y'/'yes' if human or 'n'/'no' if non-human.");
+                    System.out.println();
+                }
+            }
+            catch (Exception e) {
+                System.out.println("Invalid input. Please try again.");
                 System.out.println();
             }
         }
     }
+
 
     public double promptDouble(String prompt) {
         while (true) {
