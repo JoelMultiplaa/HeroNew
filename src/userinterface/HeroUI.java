@@ -145,7 +145,6 @@ public class HeroUI {
                         String newRealName = inputHelper.promptString("Great! And their real name?");
                         System.out.println();
 
-                        // Edit the hero's superpowers using the editSuperPowers method
                         EnumSet<Hero.SuperPower> newSuperPowers = editSuperPowers(heroToEdit.getSuperPowers(), inputHelper);
 
                         String uniquePowers = inputHelper.promptString("Any unique powers, skills or trivia to include?");
@@ -241,7 +240,6 @@ public class HeroUI {
             int powerChoice = inputHelper.promptInt("Choose an option by number: ");
 
             if (powerChoice >= 1 && powerChoice <= POWERS_PER_PAGE) {
-                // Adjust the index to account for pagination
                 int chosenIndex = startIndex + powerChoice - 1;
                 if (chosenIndex < totalPowers) {
                     Hero.SuperPower chosenPower = allPowers[chosenIndex];

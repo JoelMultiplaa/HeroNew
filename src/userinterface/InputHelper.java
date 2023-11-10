@@ -37,6 +37,7 @@ public class InputHelper {
 
     public boolean promptBoolean(String prompt) {
         while (true) {
+
             try {
                 System.out.println(prompt);
                 return Boolean.parseBoolean(keyboard.nextLine());

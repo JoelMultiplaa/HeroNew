@@ -133,6 +133,11 @@ public class Hero {
         return name.substring(0, 1).toUpperCase() + name.substring(1) + ": "+power.getDescription();
     }
 
+    public static String getPowerName(Hero.SuperPower power) {
+        String name = power.name().toLowerCase().replace('_', ' ');
+        return name.substring(0, 1).toUpperCase() + name.substring(1);
+    }
+
 
 
 
