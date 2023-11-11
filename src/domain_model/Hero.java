@@ -1,7 +1,5 @@
 package domain_model;
-
 import java.util.EnumSet;
-
 public class Hero {
     private String name;
     private String realName;
@@ -10,7 +8,6 @@ public class Hero {
     private boolean isHuman;
     private double strength;
     private String uniquePower;
-
 
     public Hero(String name, String realName,EnumSet<SuperPower> superPowers, int yearCreated, boolean isHuman, double strength, String uniquePower)
     {
@@ -21,7 +18,6 @@ public class Hero {
         this.isHuman = isHuman;
         this.strength = strength;
         this.uniquePower = uniquePower;
-
     }
     @Override
     public String toString() {
@@ -46,7 +42,6 @@ public class Hero {
     {
         this.name = name;
     }
-
     public String getRealName()
     {
         return realName;
@@ -55,32 +50,25 @@ public class Hero {
     {
         this.realName = realName;
     }
-
-    
     public void setSuperPowers(EnumSet<SuperPower> superPowers) {
         this.superPowers = superPowers;
     }
     public EnumSet<SuperPower> getSuperPowers() {
         return superPowers;
     }
-
     public String getUniquePower() {
         return uniquePower;
     }
-
     public void setUniquePower(String uniquePower) {
         this.uniquePower = uniquePower;
     }
-
 
     public int getYearCreated()
     {
         return yearCreated;}
     public void setYearCreated(int yearCreated) {
-
         this.yearCreated = yearCreated;
     }
-
     public boolean isHuman() {
         return isHuman;
     }
@@ -120,26 +108,12 @@ public class Hero {
             return description;
         }
     }
-
-    public static void displayAllSuperPowers() {
-        for (SuperPower power : SuperPower.values()) {
-            System.out.println(power.name() + ": " + power.getDescription());
-
-        }
-
-    }
     public static String formatSuperPower(Hero.SuperPower power) {
         String name = power.name().toLowerCase().replace('_', ' ');
         return name.substring(0, 1).toUpperCase() + name.substring(1) + ": "+power.getDescription();
     }
-
     public static String getPowerName(Hero.SuperPower power) {
         String name = power.name().toLowerCase().replace('_', ' ');
         return name.substring(0, 1).toUpperCase() + name.substring(1);
     }
-
-
-
-
 }
-

@@ -4,11 +4,9 @@ import java.util.Scanner;
 
 public class InputHelper {
     private final Scanner keyboard;
-
     public InputHelper(Scanner keyboard) {
         this.keyboard = keyboard;
     }
-
     public String promptString(String prompt) {
         while (true) {
             try {
@@ -21,7 +19,6 @@ public class InputHelper {
             }
         }
     }
-
     public int promptInt(String prompt) {
         while (true) {
             try {
@@ -55,8 +52,6 @@ public class InputHelper {
             }
         }
     }
-
-
     public double promptDouble(String prompt) {
         while (true) {
             try {
@@ -70,5 +65,4 @@ public class InputHelper {
             }
         }
     }
-
 }

@@ -14,7 +14,6 @@ class DatabaseTest {
 
     @BeforeEach
     void setUp() {
-        // Initialize the Database instance
         db = new Database();
         Scanner keyboard = new Scanner(System.in);
 
@@ -22,18 +21,15 @@ class DatabaseTest {
         db.addHero(new Hero("Batman", "Bruce Wayne", EnumSet.of(Hero.SuperPower.EXCEPTIONAL), 1939, true, 70, "Genius-level intellect"));
         }
 
-
-
-
     @Test
     void addHero() {
-        // Create a Hero instance with specific attributes
+        // Create a Hero instance
         Hero newHero = new Hero("Spider-Man", "Peter Parker", EnumSet.of(Hero.SuperPower.SUPER_STRENGTH, Hero.SuperPower.INVULNERABILITY), 1962, true, 75, "Web-slinging, Super agility, Wall Climbing, Spider Sense");
 
         // Add the Hero to the database
         db.addHero(newHero);
 
-        // Retrieve the list of heroes from the database
+        // Retrieve the list of database
         ArrayList<Hero> heroes;
 
         // Verify that the newHero is in the list
@@ -42,20 +38,15 @@ class DatabaseTest {
 
     @Test
     void testFindHero() {
-        // Simulate user input
         String inputName = "Batman";
         InputStream in = new ByteArrayInputStream(inputName.getBytes());
         System.setIn(in);
 
-        // Use the findHero function and verify its output
         Hero foundHero = db.findHero(inputName);
 
-        // Assert that the foundHero is not null
         assertNotNull(foundHero);
 
-        // Create the expected output string with the hero's details
         String expectedOutput = "Hero found in the Registry:\n" + foundHero.toString();
-        // Check if the expected output matches the actual output
         assertEquals(expectedOutput, "Hero found in the Registry:\n" + foundHero.toString());
     }
     @Test
@@ -64,12 +55,10 @@ class DatabaseTest {
         ArrayList<Hero> foundHeroes = db.findHeroesByPartOfName(inputSearchPart);
 
         assertEquals(1, foundHeroes.size());
+        //Superman being the only hero with letter "s" in name in this test.
     }
 
     @Test
-
-        // Work in progress!
-
     void testDeleteHero() {
 
         boolean removed = db.deleteHero("Superman");

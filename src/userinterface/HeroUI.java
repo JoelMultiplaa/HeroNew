@@ -1,12 +1,8 @@
 package userinterface;
-
 import data_source.Filehandler;
 import domain_model.*;
 import domain_model.Hero;
 import java.util.*;
-
-
-
 public class HeroUI {
     private final Controller controller;
     private Filehandler filehandler;
@@ -21,10 +17,6 @@ public class HeroUI {
         this.filehandler = new Filehandler();
         Scanner keyboard = new Scanner(System.in);
         InputHelper inputHelper = new InputHelper(keyboard);
-        
-
-//       db.addHero(new Hero("Superman", "Clark Kent", EnumSet.of(Hero.SuperPower.FLIGHT, Hero.SuperPower.SUPER_STRENGTH, Hero.SuperPower.INVULNERABILITY, Hero.SuperPower.SUPER_SPEED, Hero.SuperPower.OCULAR_POWERS), 1938, false, 100.0, "Solar Energy Absorption"));
-//        db.addHero(new Hero("Batman", "Bruce Wayne", EnumSet.of(Hero.SuperPower.EXCEPTIONAL), 1939, true, 70, "Genius-level intellect"));
 
         System.out.println("Welcome to Hero World! ");
         System.out.println(); // Line break for readability
@@ -65,20 +57,39 @@ public class HeroUI {
                     System.out.println(); // Line break for readability
                     System.out.println(newHero);
                     System.out.println(); // Line break for readability
-
-
                 }
                 case 2 -> {
-                    System.out.println("Our registered Heroes: ");
-                    System.out.println();
+                    int case2Choice;
                     ArrayList<Hero> heroesList = db.getHeroes();
-                    
-                    heroesList.sort(Comparator.comparing(Hero::getName));
-                    
-                    for (Hero hero : heroesList) {
-                        System.out.println(hero.toString());
-                        System.out.println(); // Line break for readability
-                    }
+                    do {
+                        System.out.println("""
+                        1. List Heroes by Name
+                        2. List Heroes by Strength
+                        3. List Heroes by Year Created
+                        4. Cancel
+                        """);
+                        case2Choice = inputHelper.promptInt("Enter your choice (1-4):");
+
+                        switch (case2Choice) {
+                            case 1 -> {
+                                System.out.println("Listing Heroes by Name");
+                                heroesList.sort(Comparator.comparing(Hero::getName));
+                                heroesList.forEach(hero -> System.out.println(hero.toString()));
+                            }
+                            case 2 -> {
+                                System.out.println("Listing by Strength");
+                                heroesList.sort(Comparator.comparing(Hero::getStrength));
+                                heroesList.forEach(hero -> System.out.println(hero.toString()));
+                            }
+                            case 3 -> {
+                                System.out.println("Listing by Year Created");
+                                heroesList.sort(Comparator.comparing(Hero::getYearCreated));
+                                heroesList.forEach(hero -> System.out.println(hero.toString()));
+                            }
+                            case 4 -> System.out.println("Returning to Main Menu");
+                            default -> System.out.println("Invalid Input");
+                        }
+                    } while (case2Choice != 4);
                 }
                 case 3 -> {
                     System.out.println("Input hero name, or partial name ");
@@ -87,7 +98,7 @@ public class HeroUI {
                     ArrayList<Hero> matchingHeroes = db.findHeroesByPartOfName(searchPart);
                     if (!matchingHeroes.isEmpty()) {
 
-                        // Sort the matchingHeroes list alphabetically by hero name
+                        // Sort the matchingHeroes list alphabetically
                         matchingHeroes.sort(Comparator.comparing(Hero::getName));
 
                         System.out.println("Matching Heroes:");
@@ -121,21 +132,20 @@ public class HeroUI {
                 case 4 -> {
                     EnumSet<Hero.SuperPower> searchPowers = EnumSet.noneOf(Hero.SuperPower.class);
                     System.out.println("Select the first superpower to search for:");
-                    searchPowers.add(selectSuperPower(inputHelper));  // Pass inputHelper to the method
+                    searchPowers.add(selectSuperPower(inputHelper));
                     System.out.println("Would you like to add a second superpower to your search? (y/n)");
                     String addSecondPower = inputHelper.promptString("");
                     if (addSecondPower.equalsIgnoreCase("y")) {
                         System.out.println("Select the second superpower to search for:");
-                        searchPowers.add(selectSuperPower(inputHelper)); // Pass inputHelper to the method
+                        searchPowers.add(selectSuperPower(inputHelper));
                     }
                     List<Hero> foundHeroes = Controller.searchHeroesByPowers(db.getHeroes(), searchPowers);
-                    System.out.println("Found heroes with the selected superpowers: " + foundHeroes);
+                    System.out.println("Found heroes with the selected superpowers: " + "\n" );
+                    foundHeroes.forEach(hero -> System.out.println(hero.toString() + ("\n")));
                 }
-
                 case 5 -> {
                     System.out.println("Please Input Hero Name to Edit: ");
                     String heroNameToEdit = inputHelper.promptString("");
-
                     Hero heroToEdit = db.findHero(heroNameToEdit);
 
                     if (heroToEdit != null) {
@@ -154,20 +164,17 @@ public class HeroUI {
                         double newStrength = inputHelper.promptDouble("Enter new strength level from 1-100.");
                         System.out.println();
                         boolean newIsHuman = inputHelper.promptBoolean("Are they human? Input y/n: ");
-
-                        // Updated hero completion
                         db.updateHero(heroNameToEdit, newName, newRealName, newSuperPowers, newYearCreated, newIsHuman, newStrength, uniquePowers);
-                        // FIX ISHUMAN
+
                         heroToEdit.setName(newName);
 
-                        Hero updatedHero = db.findHero(newName); // IS THIS WORKING PROPERLY?
+                        Hero updatedHero = db.findHero(newName);
                         System.out.println("Your Hero Has Been Updated,");
                         System.out.println(); // Line break for readability
                     } else {
                         System.out.println("Hero not found.");
                     }
                 }
-
                 case 6 -> {
                     String heroNameToDelete = inputHelper.promptString("Enter the Hero Name to Delete:");
                     int choice = inputHelper.promptInt("Are you sure you want to delete " + heroNameToDelete + "? (1 for Yes, 2 for No)");
@@ -191,9 +198,7 @@ public class HeroUI {
                         System.out.println("Save cancelled");
                     }
                     else System.out.println("Please select yes or no, or y/n");
-
                 }
-
                 case 8 -> {
                     System.out.println("Do you wish to save the current list of heroes before exiting? (y/n): ");
                     String saveChoice = inputHelper.promptString("");
@@ -208,12 +213,11 @@ public class HeroUI {
         } while (true);
     }
     private static final int POWERS_PER_PAGE = 6;
-
     private static void displaySuperPowersList(int currentPage, Hero.SuperPower[] allPowers, int startIndex, int endIndex) {
         for (int i = startIndex; i < endIndex; i++) {
             System.out.println((i - startIndex + 1) + ". " + Hero.formatSuperPower(allPowers[i]));
         }
-        // Show previous page option if not on the first page
+        // Show previous page option if NOT on the first page
         if (currentPage > 0) {
             System.out.println("7. Previous Page");
         }
@@ -224,8 +228,6 @@ public class HeroUI {
         // Always show the done option
         System.out.println("9. Done");
     }
-
-
     public static EnumSet<Hero.SuperPower> editSuperPowers(EnumSet<Hero.SuperPower> currentPowers, InputHelper inputHelper) {
         EnumSet<Hero.SuperPower> heroPowers = currentPowers != null ? currentPowers : EnumSet.noneOf(Hero.SuperPower.class);
         int currentPage = 0;
@@ -265,10 +267,8 @@ public class HeroUI {
                 System.out.println("Invalid option. Try again.");
             }
         }
-
         return heroPowers;
     }
-
     private static Hero.SuperPower selectSuperPower(InputHelper inputHelper) {
         int currentPage = 0;
         Hero.SuperPower selectedPower = null;
@@ -288,11 +288,8 @@ public class HeroUI {
             }
             System.out.println("9. Done");
 
-
             int powerChoice = inputHelper.promptInt("Choose superpowers from the menu below");
             System.out.println(); // Line break for readability
-
-
             if (powerChoice >= 1 && powerChoice <= POWERS_PER_PAGE && (startIndex + powerChoice - 1) < totalPowers) {
                 selectedPower = Hero.SuperPower.values()[startIndex + powerChoice - 1];
             } else if (powerChoice == 7 && currentPage > 0) {
@@ -305,8 +302,6 @@ public class HeroUI {
                 System.out.println("Invalid option. Try again.");
             }
         }
-
         return selectedPower;
     }
-
 }

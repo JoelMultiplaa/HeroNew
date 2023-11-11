@@ -1,27 +1,19 @@
 package domain_model;
-
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.Iterator;
-import java.util.List;
 
 public class Database {
-
     private  ArrayList<Hero> heroes = new ArrayList<>();
-
-
     public void addHero(Hero hero) {
         heroes.add(hero);
     }
-
     public ArrayList<Hero> getHeroes() {
         return heroes;
     }
     public void setHeroesList(ArrayList<Hero> loadedHeroes) {
         this.heroes = loadedHeroes;
     }
-
-
     public Hero findHero(String searchName) {
         for (Hero h : heroes) {
             if (h.getName().equalsIgnoreCase(searchName)) {
@@ -34,7 +26,7 @@ public class Database {
         System.out.println("Hero not found in the Registry");
         return null;
     }
-    public void updateHero(String name, String newName, String newRealName, EnumSet<Hero.SuperPower> newSuperPowers, int newYearCreated, boolean newIsHuman, double newStrength, String uniquePower) {
+    public void updateHero(String name, String newName, String newRealName, EnumSet<Hero.SuperPower> newSuperPowers, int newYearCreated, boolean newIsHuman, double newStrength, String newUniquePower) {
         for (Hero hero : heroes) {
             if (hero.getName().equalsIgnoreCase(name)) {
                 hero.setName(newName);
@@ -43,13 +35,12 @@ public class Database {
                 hero.setYearCreated(newYearCreated);
                 hero.setIsHuman(newIsHuman);
                 hero.setStrength(newStrength);
+                hero.setUniquePower(newUniquePower);
                 return;
             }
         }
         System.out.println("Hero not found for update.");
     }
-
-
     public ArrayList<Hero> findHeroesByPartOfName(String searchPart) {
         ArrayList<Hero> matchingHeroes = new ArrayList<>();
         for (Hero h : heroes) {
@@ -59,7 +50,6 @@ public class Database {
         }
         return matchingHeroes;
     }
-
     public boolean deleteHero(String name, int choice) {
         Iterator<Hero> iterator = heroes.iterator();
         boolean heroFound = false;
@@ -71,23 +61,17 @@ public class Database {
                 if (choice == 1) {
                     iterator.remove(); // Remove the hero from the list
                 }
-                break; // Exit the loop when the hero is found
+                break; // Exit the loop when hero is found
             }
         }
-
         if (!heroFound) {
             System.out.println();
         } else if (choice == 2) {
             System.out.println();
         }
-
         return heroFound && choice == 1;
     }
-
     public boolean deleteHero(String name) {
-
-
         return false;
     }
-
 }

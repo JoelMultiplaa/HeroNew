@@ -37,12 +37,9 @@ public class Controller {
     public void updateHero(String name, String newName, String newRealName, EnumSet<Hero.SuperPower> newSuperPowers, int newYearCreated, boolean newIsHuman, double newStrength, String newUniquePower) {
         db.updateHero(name, newName, newRealName, newSuperPowers, newYearCreated, newIsHuman, newStrength, newUniquePower);
     }
-
-
     public ArrayList<Hero> getHeroesList() {
         return db.getHeroes();
     }
-
     public void startProgram() {
         Filehandler filehandler = new Filehandler();
         ArrayList<Hero> heroes = filehandler.loadFromCsvFile();

@@ -1,17 +1,11 @@
 package data_source;
-
 import domain_model.Hero;
-
 import java.io.*;
-import java.nio.file.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class Filehandler {
-
-
     public static final String DELIMITER = ",";
-
     public static void saveToCsvFile(List<Hero> heroes) {
 
         File file = new File("HeroFile.txt");
@@ -28,16 +22,9 @@ public class Filehandler {
             e.printStackTrace();
         }
     }
-
-
     public static ArrayList<Hero> loadFromCsvFile() {
         File file = new File("HeroFile.txt");
         ArrayList<Hero> heroes = new ArrayList<>();
-
-        if (!Files.exists(file.toPath())) {
-            return heroes;
-        }
-
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
